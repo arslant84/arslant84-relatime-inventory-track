@@ -1,0 +1,89 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Tracker</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Inventory">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png">
+    
+    <link rel="stylesheet" href="/css/inventory.css">
+</head>
+
+<body>
+    <h1>Real-Time Inventory Tracker PWA</h1>
+    <div id="add-item-form">
+        <h2>Add New Item</h2>
+        <form id="itemForm">
+            <label for="itemName">Name:</label>
+            <input type="text" id="itemName" name="itemName" required><br><br>
+            <label for="itemQuantity">Quantity:</label>
+            <input type="number" id="itemQuantity" name="itemQuantity" min="1" value="1" required><br><br>
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+    <div id="status-message" style="margin-top: 10px; color: green; font-weight: bold;"></div>
+    <hr>
+
+    <div>
+        <label for="search">Search items:</label>
+        <input type="text" id="search">
+    </div>
+    <hr>
+
+    <div>
+        <label for="sortBy">Sort by:</label>
+        <select id="sortBy">
+            <option value="name">Name</option>
+            <option value="quantity">Quantity</option>
+        </select>
+        <label for="sortOrder">Order:</label>
+        <select id="sortOrder">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+    </div>
+    <hr>
+
+    <ul id="inventory-list">
+        <% if (inventoryItems && inventoryItems.length > 0) { %>
+            <% inventoryItems.forEach(item => { %>
+                <li id="item-<%= item.id %>">
+                    <%= item.name %>:
+                    <button onclick="inventoryManager.changeQuantity('<%= item.id %>', -1)">-</button>
+                    <input type="number" id="quantity-<%= item.id %>" value="<%= item.quantity %>" min="0" style="width: 60px;">
+                    <button onclick="inventoryManager.changeQuantity('<%= item.id %>', 1)">+</button>
+                    <button onclick="inventoryManager.updateQuantity('<%= item.id %>', document.getElementById('quantity-<%= item.id %>').value)">Update</button>
+                    <button onclick="inventoryManager.removeItem('<%= item.id %>')">Remove</button>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No items in inventory.</li>
+        <% } %>
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>

@@ -1,0 +1,90 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1, h2 {
+    color: navy;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#add-item-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#add-item-form label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+#add-item-form input[type="text"],
+#add-item-form input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 150px;
+}
+
+#add-item-form button {
+    padding: 10px 15px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+#add-item-form button:hover {
+    background-color: #4cae4c;
+}
+
+#inventory-list {
+    list-style-type: none;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+#inventory-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#inventory-list li:last-child {
+    border-bottom: none;
+}
+
+#inventory-list li button {
+    padding: 8px 12px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#inventory-list li button:hover {
+    background-color: #c9302c;
+}
+
+hr {
+    border: 1px solid #ddd;
+    margin: 20px 0;
+}
